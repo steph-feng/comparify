@@ -1,8 +1,16 @@
 function TopArtists(props) {
     return (
         <div>
-            {props.results.items.map(item => <p>{item.name}</p>)}
-
+            <h2>Top Ten Artists</h2>
+            <div className="grid">
+                {props.results.items.map(
+                    item =>
+                        <div className="grid-item">
+                            <img src={item.images[0].url} height={200} width={200}></img>
+                            <p>{item.name}</p>
+                        </div>
+                )}
+            </div>
         </div>
     )
 }

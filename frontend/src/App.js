@@ -9,9 +9,6 @@ import Callback from './Callback';
 import TopArtists from './TopArtists';
 import TopTracks from './TopTracks';
 
-let topArtistsToDB;
-let topTracksToDB;
-
 function App() {
   return (
     <Router>
@@ -28,4 +25,3 @@ function App() {
 }
 
 export default App;
-export { topArtistsToDB, topTracksToDB };

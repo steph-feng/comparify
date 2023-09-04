@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 
 import TopArtists, { fetchTopArtists } from './TopArtists';
 import TopTracks, { fetchTopTracks } from './TopTracks';
@@ -8,7 +7,6 @@ const clientId = 'a357c65627404b7399e0f41a59410bf3';
 const redirectUri = 'http://localhost:3000/callback';
 
 function Callback() {
-    const navigate = useNavigate();
     const [topArtistsResults, setTopArtistsResults] = useState();
     const [topTracksResults, setTopTracksResults] = useState();
     const [fetchingArtists, setFetchingArtists] = useState(true);
@@ -65,7 +63,7 @@ function Callback() {
                     console.error('Error:', error);
                 });
             }
-    }, [navigate]);
+    }, []);
 
     if (fetchingArtists || fetchingTracks) {
         return (
