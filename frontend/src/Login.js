@@ -40,7 +40,7 @@ let codeVerifier = generateRandomString(128);
 function handleLogin() {
     generateCodeChallenge(codeVerifier).then(codeChallenge => {
         let state = generateRandomString(16);
-        let scope = 'user-top-read';
+        let scope = 'user-top-read user-read-private user-read-email';
 
         localStorage.setItem('code_verifier', codeVerifier);
 

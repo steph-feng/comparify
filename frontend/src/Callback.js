@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 
 import TopArtists, { fetchTopArtists } from './TopArtists';
 import TopTracks, { fetchTopTracks } from './TopTracks';
+import { fetchUserProfile } from './UserProfile';
 
 const clientId = 'a357c65627404b7399e0f41a59410bf3';
 const redirectUri = 'http://localhost:3000/callback';
@@ -43,16 +44,17 @@ function Callback() {
                     localStorage.setItem('expires_in', data.expires_in);
                     localStorage.setItem('refresh_token', data.refresh_token);
 
-                    Promise.all([fetchTopArtists(), fetchTopTracks()])
-                        .then(([artists, tracks]) => {
+                    Promise.all([fetchUserProfile(), fetchTopArtists(), fetchTopTracks()])
+                        .then(([user, artists, tracks]) => {
                             setTopArtistsResults(artists);
                             setTopTracksResults(tracks);
                             setFetchingArtists(false);
                             setFetchingTracks(false);
 
                             const dataToSend = {
+                                userResults: user,
                                 topArtistsResults: artists,
-                                topTracksResults: tracks,
+                                topTracksResults: tracks
                             };
 
                             saveDataToMongo(dataToSend);
@@ -76,6 +78,7 @@ function Callback() {
             <div>
                 <TopArtists results={topArtistsResults} />
                 <TopTracks results={topTracksResults} />
+                <button>next</button>
             </div>
         )
     }
@@ -96,10 +99,10 @@ function saveDataToMongo(data) {
             return response.json();
         })
         .then((response) => {
-            console.log(`Data saved successfully: ${response.message}`);
+            console.log(`${response.message}`);
         })
         .catch((error) => {
-            console.error(`Error saving data: ${error}`);
+            console.error(`${error}`);
         });
 }
 
