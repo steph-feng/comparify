@@ -29,7 +29,8 @@ async function connectToMongo() {
     topArtistsNames: [String],
     topTracksNames: [String],
     popularityScores: [Number],
-    artistGenres: [String]
+    artistGenres: [String],
+    finalPopularityScore: Number
   })
 
   const User = mongoose.model('User', userSchema);
@@ -41,7 +42,14 @@ app.post('/callback/save', async (req, res) => {
   const userId = req.body.userResults.id;
   const artistNames = req.body.topArtistsResults.items.map(item => item.name);
   const trackNames = req.body.topTracksResults.items.map(item => item.name);
-  const popularity = req.body.topArtistsResults.items.map(item => item.popularity);
+
+  const popularityArray = req.body.topArtistsResults.items.map(item => item.popularity);
+  let popularityAverage = 0;
+
+  popularityArray.forEach((element) => {
+    popularityAverage = popularityAverage + element;
+  })
+  popularityAverage = popularityAverage / popularityArray.length;
 
   let fetchedGenres = [];
   for (i = 0; i < req.body.topArtistsResults.items.length; i++) {
@@ -55,8 +63,9 @@ app.post('/callback/save', async (req, res) => {
   if (existingUser) {
     existingUser.topArtistsNames = artistNames;
     existingUser.topTracksNames = trackNames;
-    existingUser.popularityScores = popularity;
+    existingUser.popularityScores = popularityArray;
     existingUser.artistGenres = fetchedGenres;
+    existingUser.finalPopularityScore = popularityAverage;
 
     existingUser.save()
       .then(() => {
@@ -65,14 +74,15 @@ app.post('/callback/save', async (req, res) => {
       .catch((error) => {
         res.status(500).json({ message: 'Error updating data' });
       });
-      
+
   } else {
     const user = new User({
       _id: userId,
       topArtistsNames: artistNames,
       topTracksNames: trackNames,
-      popularityScores: popularity,
-      artistGenres: fetchedGenres
+      popularityScores: popularityArray,
+      artistGenres: fetchedGenres,
+      finalPopularityScore: popularityAverage
     });
 
     user.save()
@@ -84,6 +94,15 @@ app.post('/callback/save', async (req, res) => {
       });
   }
 });
+
+app.get('/callback/compare', async (req, res) => {
+  const User = mongoose.model('User');
+
+  const currentUserData = User.findById(localStorage.getItem('userID'));
+  const friendUserData = User.findById(req.body);
+
+
+})
 
 
 

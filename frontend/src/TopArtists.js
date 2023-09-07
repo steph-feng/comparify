@@ -24,7 +24,7 @@ export default TopArtists;
 
 async function fetchTopArtists() {
     let token = localStorage.getItem('access_token');
-    const response = await fetch('https://api.spotify.com/v1/me/top/artists?limit=20&time_range=short_term', {
+    const response = await fetch('https://api.spotify.com/v1/me/top/artists?time_range=short_term', {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` }
     });

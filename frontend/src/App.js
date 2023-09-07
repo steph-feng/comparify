@@ -6,8 +6,7 @@ import {
 } from "react-router-dom";
 import Login from './Login';
 import Callback from './Callback';
-import TopArtists from './TopArtists';
-import TopTracks from './TopTracks';
+import Compare from './Compare';
 
 function App() {
   return (
@@ -16,8 +15,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />}></Route>
           <Route path='/callback' element={<Callback />}></Route>
-          <Route path='/top-artists' element={<TopArtists />}></Route>
-          <Route path='/top-tracks' element={<TopTracks />}></Route>
+          <Route path='/compare' element={<Compare />}></Route>
         </Routes>
       </div>
     </Router>

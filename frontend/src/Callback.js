@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import TopArtists, { fetchTopArtists } from './TopArtists';
 import TopTracks, { fetchTopTracks } from './TopTracks';
@@ -10,8 +11,12 @@ const redirectUri = 'http://localhost:3000/callback';
 function Callback() {
     const [topArtistsResults, setTopArtistsResults] = useState();
     const [topTracksResults, setTopTracksResults] = useState();
+
     const [fetchingArtists, setFetchingArtists] = useState(true);
     const [fetchingTracks, setFetchingTracks] = useState(true);
+
+    const [toCompare, setToCompare] = useState(false);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
@@ -58,6 +63,7 @@ function Callback() {
                             };
 
                             saveDataToMongo(dataToSend);
+                            localStorage.setItem('userID', user.id)
 
                         })
                 })
@@ -65,7 +71,7 @@ function Callback() {
                     console.error('Error:', error);
                 });
             }
-    }, []);
+    },[]);
 
     if (fetchingArtists || fetchingTracks) {
         return (
@@ -74,13 +80,17 @@ function Callback() {
             </div>
         );
     } else {
-        return (
-            <div>
-                <TopArtists results={topArtistsResults} />
-                <TopTracks results={topTracksResults} />
-                <button>next</button>
-            </div>
-        )
+        if (toCompare) {
+            navigate('/compare');
+        } else {
+            return (
+                <div>
+                    <TopArtists results={topArtistsResults} />
+                    <TopTracks results={topTracksResults} />
+                    <button onClick={() => setToCompare(true)}>next</button>
+                </div>
+            )
+        }
     }
 }
 
@@ -108,3 +118,6 @@ function saveDataToMongo(data) {
 
 
 export default Callback;
+
+
+
