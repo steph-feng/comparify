@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Login from './Login';
 import Callback from './Callback';
+import FindFriend from './FindFriend';
 import Compare from './Compare';
 
 function App() {
@@ -15,7 +16,8 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />}></Route>
           <Route path='/callback' element={<Callback />}></Route>
-          <Route path='/compare' element={<Compare />}></Route>
+          <Route path='/findFriend' element={<FindFriend />}></Route>
+          <Route path='/compare' element={<Compare/>}></Route>
         </Routes>
       </div>
     </Router>

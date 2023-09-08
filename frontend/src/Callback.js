@@ -15,7 +15,7 @@ function Callback() {
     const [fetchingArtists, setFetchingArtists] = useState(true);
     const [fetchingTracks, setFetchingTracks] = useState(true);
 
-    const [toCompare, setToCompare] = useState(false);
+    const [toFindFriend, setToFindFriend] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -80,14 +80,14 @@ function Callback() {
             </div>
         );
     } else {
-        if (toCompare) {
-            navigate('/compare');
+        if (toFindFriend) {
+            navigate('/findFriend');
         } else {
             return (
                 <div>
                     <TopArtists results={topArtistsResults} />
                     <TopTracks results={topTracksResults} />
-                    <button onClick={() => setToCompare(true)}>next</button>
+                    <button onClick={() => setToFindFriend(true)}>next</button>
                 </div>
             )
         }

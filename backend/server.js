@@ -95,12 +95,13 @@ app.post('/callback/save', async (req, res) => {
   }
 });
 
-app.get('/callback/compare', async (req, res) => {
+app.get('/callback/findFriend', async (req, res) => {
   const User = mongoose.model('User');
 
-  const currentUserData = User.findById(localStorage.getItem('userID'));
-  const friendUserData = User.findById(req.body);
+  const currentUserData = await User.findById(req.query.userId);
+  const friendUserData = await User.findById(req.query.friendUserId);
 
+  res.json({currentUserData, friendUserData});
 
 })
 
