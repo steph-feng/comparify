@@ -4,17 +4,18 @@ import {
   Routes,
   Route
 } from "react-router-dom";
-import Login from './Login';
-import Callback from './Callback';
-import FindFriend from './FindFriend';
-import Compare from './Compare';
+
+import { LandingPage } from './pages/LandingPage';
+import Callback from './pages/Callback';
+import FindFriend from './pages/FindFriend';
+import Compare from './pages/Compare';
 
 function App() {
   return (
     <Router>
       <div className='App'>
         <Routes>
-          <Route path='/' element={<Login />}></Route>
+          <Route path='/' element={<LandingPage />}></Route>
           <Route path='/callback' element={<Callback />}></Route>
           <Route path='/findFriend' element={<FindFriend />}></Route>
           <Route path='/compare' element={<Compare/>}></Route>

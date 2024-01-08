@@ -1,7 +1,124 @@
 .App {
-  text-align: center;
+  min-height: 100vh;
+  min-width: 100vw;
+  overflow: hidden;
+}
+
+/* LandingPage styles */
+
+#landingPageContainer {
+  background-color: #D8F6E3;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   justify-content: center;
 }
+
+@keyframes slideUp {
+  0% {
+    transform: translateY(100%);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}
+
+@font-face { 
+  font-family: "poppins-bolditalic"; 
+  src: url('./assets/fonts/Poppins-BoldItalic.ttf') format("truetype");
+ } 
+
+#title {
+  font-family: "poppins-bolditalic";
+  font-size: 10vh;
+  color: #6357e6;
+  animation-duration: 2s;
+  animation-name: slideUp;
+  margin-bottom: 3vh;
+}
+
+
+@font-face { 
+  font-family: "poppins-semibold"; 
+  src: url('./assets/fonts/Poppins-SemiBold.ttf') format("truetype");
+ } 
+
+
+#startButton {
+  background-color: white;
+  font-family: "poppins-semibold";
+  color: #1DB954;
+  font-size: 2vh;
+  border: none;
+  border-radius: 1vh;
+  padding: 0vh 2vh;
+  margin-bottom: 15vh;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  animation-duration: 2s;
+  animation-name: slideUp;
+}
+
+#buttonText {
+  margin-left: 1vh;
+}
+
+
+.wave {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  height: 30vh;
+  width: 200%;
+  border-radius: 1000% 1000% 0 0;
+}
+
+.wave:nth-of-type(1) {
+  background: #B8EECB; 
+  z-index: 1;
+  animation: wave 8s -5s ease-in reverse infinite;
+}
+
+.wave:nth-of-type(2) {
+  background: #7AD99C;
+  z-index: 2;
+  bottom: -5vh;
+  animation: wave 12s ease-in reverse infinite;
+}
+
+.wave:nth-of-type(3) {
+  background: #41C870;
+  opacity: 0.8;
+  z-index: 3;
+  bottom: -12vh;
+  animation: wave 5s -1s linear alternate infinite;
+}
+
+@keyframes wave {
+  2% {
+      transform: translateX(1);
+  }
+
+  25% {
+      transform: translateX(-25%);
+  }
+
+  50% {
+      transform: translateX(-50%);
+  }
+
+  75% {
+      transform: translateX(-25%);
+  }
+
+  100% {
+      transform: translateX(1);
+  }
+}
+
 
 .grid {
   display: grid;

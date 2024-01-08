@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import TopArtists, { fetchTopArtists } from './TopArtists';
-import TopTracks, { fetchTopTracks } from './TopTracks';
-import { fetchUserProfile } from './UserProfile';
+import TopArtists, { fetchTopArtists } from '../components/TopArtists';
+import TopTracks, { fetchTopTracks } from '../components/TopTracks';
+import { fetchUserProfile } from '../components/UserProfile';
 
 const clientId = 'a357c65627404b7399e0f41a59410bf3';
 const redirectUri = 'http://localhost:3000/callback';
