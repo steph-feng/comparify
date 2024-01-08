@@ -1,7 +1,7 @@
 export function LandingPage() {
     return (
         <div id="landingPageContainer">
-            <h1 id="title">comparify</h1>
+            <h1 className="title">comparify</h1>
             <button id="startButton" onClick={handleLogin}>
                 <svg stroke="#1DB954" fill="#1DB954" viewBox="0 0 496 512" height="2.5vh" width="2.5vh"
                     xmlns="http://www.w3.org/2000/svg">
@@ -26,7 +26,7 @@ export function LandingPage() {
 // Spotify authorization code flow
 
 const clientId = 'a357c65627404b7399e0f41a59410bf3';
-const redirectUri = 'http://localhost:3000/callback';
+const redirectUri = 'http://localhost:3000/insights';
 
 function generateRandomString(length) {
     let text = '';

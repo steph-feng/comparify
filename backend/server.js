@@ -38,7 +38,7 @@ async function connectToMongo() {
 
 connectToMongo();
 
-app.post('/callback/save', async (req, res) => {
+app.post('/save', async (req, res) => {
   const userId = req.body.userResults.id;
   const artistNames = req.body.topArtistsResults.items.map(item => item.name);
   const trackNames = req.body.topTracksResults.items.map(item => item.name);
@@ -95,7 +95,7 @@ app.post('/callback/save', async (req, res) => {
   }
 });
 
-app.get('/callback/findFriend', async (req, res) => {
+app.get('/findFriend', async (req, res) => {
   const User = mongoose.model('User');
 
   const currentUserData = await User.findById(req.query.userId);

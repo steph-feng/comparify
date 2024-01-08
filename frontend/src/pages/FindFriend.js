@@ -9,7 +9,7 @@ function FindFriend() {
 
     function handleClick() {
         let friendUserId = document.getElementById('textbox').value;
-        const url = `http://localhost:4000/callback/findFriend?userId=${localStorage.getItem('userID')}&friendUserId=${encodeURIComponent(friendUserId)}`;
+        const url = `http://localhost:4000/findFriend?userId=${localStorage.getItem('userID')}&friendUserId=${encodeURIComponent(friendUserId)}`;
 
         fetch(url, {
             method: 'GET',

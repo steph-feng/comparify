@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import TopArtists, { fetchTopArtists } from '../components/TopArtists';
-import TopTracks, { fetchTopTracks } from '../components/TopTracks';
-import { fetchUserProfile } from '../components/UserProfile';
+import { TopArtists, fetchTopArtists } from '../components/TopArtists';
+import { TopTracks, fetchTopTracks } from '../components/TopTracks';
+import { UserProfile, fetchUserProfile } from '../components/UserProfile';
 
 const clientId = 'a357c65627404b7399e0f41a59410bf3';
-const redirectUri = 'http://localhost:3000/callback';
+const redirectUri = 'http://localhost:3000/insights';
 
-function Callback() {
+export function Insights() {
+    const [userResults, setUserResults] = useState();
     const [topArtistsResults, setTopArtistsResults] = useState();
     const [topTracksResults, setTopTracksResults] = useState();
 
+    const [fetchingUser, setFetchingUser] = useState(true);
     const [fetchingArtists, setFetchingArtists] = useState(true);
     const [fetchingTracks, setFetchingTracks] = useState(true);
 
@@ -51,8 +53,11 @@ function Callback() {
 
                     Promise.all([fetchUserProfile(), fetchTopArtists(), fetchTopTracks()])
                         .then(([user, artists, tracks]) => {
+                            setUserResults(user);
                             setTopArtistsResults(artists);
                             setTopTracksResults(tracks);
+
+                            setFetchingUser(false);
                             setFetchingArtists(false);
                             setFetchingTracks(false);
 
@@ -70,14 +75,16 @@ function Callback() {
                 .catch((error) => {
                     console.error('Error:', error);
                 });
-            }
-    },[]);
+        }
+    }, []);
 
-    if (fetchingArtists || fetchingTracks) {
+    if (fetchingUser || fetchingArtists || fetchingTracks) {
         return (
-            <div>
-                <p>loading</p>
+            <div className="insightsContainer">
+                <div id="loader"> </div>
+                <div id="loaderText">loading!</div>
             </div>
+            
         );
     } else {
         if (toFindFriend) {
@@ -85,6 +92,7 @@ function Callback() {
         } else {
             return (
                 <div>
+                    <UserProfile results={userResults} />
                     <TopArtists results={topArtistsResults} />
                     <TopTracks results={topTracksResults} />
                     <button onClick={() => setToFindFriend(true)}>next</button>
@@ -95,7 +103,7 @@ function Callback() {
 }
 
 function saveDataToMongo(data) {
-    fetch(`http://localhost:4000/callback/save`, {
+    fetch(`http://localhost:4000/save`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
@@ -116,8 +124,6 @@ function saveDataToMongo(data) {
         });
 }
 
-
-export default Callback;
 
 
 
