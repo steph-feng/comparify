@@ -4,7 +4,7 @@ export function TopArtists(props) {
             <div className="titleContainer">
                 <h1 className="subtitle">your top artists</h1>
             </div>
-            <div className="topItemsContainer">
+            <div className="topItemsContainer" id="artistsContainer">
                 <div className="grid">
                     {props.results.items.map(
                         (item, index) =>
@@ -18,7 +18,7 @@ export function TopArtists(props) {
 
                 <div id="arrowWrapper">
                     <a href="#topTracksContainer">
-                        <button className="downArrow" id="toTracksArrow"></button>
+                        <button className="downArrow"></button>
                     </a>
                 </div>
 

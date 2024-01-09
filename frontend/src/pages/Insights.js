@@ -5,6 +5,7 @@ import { TopArtists, fetchTopArtists } from '../components/TopArtists';
 import { TopTracks, fetchTopTracks } from '../components/TopTracks';
 import { UserProfile, fetchUserProfile } from '../components/UserProfile';
 import { GenrePopularity } from '../components/GenrePopularity';
+import { FindFriend, getResponseObject } from '../components/FindFriend';
 
 const clientId = 'a357c65627404b7399e0f41a59410bf3';
 const redirectUri = 'http://localhost:3000/insights';
@@ -20,7 +21,6 @@ export function Insights() {
     const [fetchingArtists, setFetchingArtists] = useState(true);
     const [fetchingTracks, setFetchingTracks] = useState(true);
 
-    const [toFindFriend, setToFindFriend] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -98,19 +98,15 @@ export function Insights() {
 
         );
     } else {
-        if (toFindFriend) {
-            navigate('/findFriend');
-        } else {
             return (
                 <div>
                     <UserProfile results={userResults} />
                     <TopArtists results={topArtistsResults} />
                     <TopTracks results={topTracksResults} />
                     <GenrePopularity genres={topGenres} popularity={popularity} />
-                    <button onClick={() => setToFindFriend(true)}>next</button>
+                    <FindFriend />
                 </div>
             )
-        }
     }
 }
 

@@ -3,7 +3,7 @@ import { useState } from "react";
 
 let responseObject;
 
-function FindFriend() {
+export function FindFriend() {
     const [toCompare, setToCompare] = useState(false);
     const navigate = useNavigate();
 
@@ -37,8 +37,8 @@ function FindFriend() {
         navigate('/compare');
     } else {
         return (
-            <div>
-                <h3>Your User ID: {localStorage.getItem('userID')}</h3>
+            <div id="findFriendContainer">
+                <h1 id='test'>Your User ID: {localStorage.getItem('userID')}</h1>
                 <p>Input your friend's user ID here:</p>
                 <input id='textbox' type="text"></input>
                 <button onClick={handleClick}>Click to compare</button>
@@ -47,10 +47,6 @@ function FindFriend() {
     }
 }
 
-export default FindFriend
-
-function getResponseObject() {
+export function getResponseObject() {
     return responseObject;
 }
-
-export { getResponseObject };

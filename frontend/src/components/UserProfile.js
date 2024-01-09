@@ -5,7 +5,7 @@ export function UserProfile(props) {
             <p className="description">see your insights below</p>
             <div id="arrowWrapper">
                 <a href="#topArtistsContainer">
-                    <button className="downArrow"></button>
+                    <button className="downArrow" id="toArtistsArrow"></button>
                 </a>
             </div>
         </div>

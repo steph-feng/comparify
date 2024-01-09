@@ -1,4 +1,4 @@
-import { getResponseObject } from "./FindFriend";
+import { getResponseObject } from "../components/FindFriend";
 import { useState, useEffect } from "react";
 
 function Compare() {
