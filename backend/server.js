@@ -28,9 +28,8 @@ async function connectToMongo() {
     _id: String,
     topArtistsNames: [String],
     topTracksNames: [String],
-    popularityScores: [Number],
-    artistGenres: [String],
-    finalPopularityScore: Number
+    topGenres: [String],
+    popularity: Number
   })
 
   const User = mongoose.model('User', userSchema);
@@ -43,19 +42,6 @@ app.post('/save', async (req, res) => {
   const artistNames = req.body.topArtistsResults.items.map(item => item.name);
   const trackNames = req.body.topTracksResults.items.map(item => item.name);
 
-  const popularityArray = req.body.topArtistsResults.items.map(item => item.popularity);
-  let popularityAverage = 0;
-
-  popularityArray.forEach((element) => {
-    popularityAverage = popularityAverage + element;
-  })
-  popularityAverage = popularityAverage / popularityArray.length;
-
-  let fetchedGenres = [];
-  for (i = 0; i < req.body.topArtistsResults.items.length; i++) {
-    fetchedGenres = fetchedGenres.concat(req.body.topArtistsResults.items[i].genres);
-  }
-
   const User = mongoose.model('User');
 
   const existingUser = await User.findById(userId);
@@ -63,9 +49,8 @@ app.post('/save', async (req, res) => {
   if (existingUser) {
     existingUser.topArtistsNames = artistNames;
     existingUser.topTracksNames = trackNames;
-    existingUser.popularityScores = popularityArray;
-    existingUser.artistGenres = fetchedGenres;
-    existingUser.finalPopularityScore = popularityAverage;
+    existingUser.topGenres = req.body.topGenreResults;
+    existingUser.popularity = req.body.popularityScore;
 
     existingUser.save()
       .then(() => {
@@ -80,9 +65,8 @@ app.post('/save', async (req, res) => {
       _id: userId,
       topArtistsNames: artistNames,
       topTracksNames: trackNames,
-      popularityScores: popularityArray,
-      artistGenres: fetchedGenres,
-      finalPopularityScore: popularityAverage
+      topGenres: req.body.topGenreResults,
+      popularity: req.body.popularityScore
     });
 
     user.save()

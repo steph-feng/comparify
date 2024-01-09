@@ -13,7 +13,14 @@ export function TopTracks(props) {
                             </div>
                     )}
                 </div>
+
+                <div id="arrowWrapper">
+                    <a href="#genrePopularityContainer">
+                        <button className="downArrow" id="toGenrePopularityArrow"></button>
+                    </a>
+                </div>
             </div>
+
             <div className="titleContainer">
                 <h1 className="subtitle">your top tracks</h1>
             </div>

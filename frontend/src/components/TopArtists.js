@@ -9,7 +9,9 @@ export function TopArtists(props) {
                     {props.results.items.map(
                         (item, index) =>
                             <div className="topItem">
-                                <div className="item">{index + 1}. {item.name}</div>
+                                <div className="item">
+                                    <p className="mainText artistsText">{index + 1}. {item.name}</p>
+                                </div>
                             </div>
                     )}
                 </div>

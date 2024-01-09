@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { TopArtists, fetchTopArtists } from '../components/TopArtists';
 import { TopTracks, fetchTopTracks } from '../components/TopTracks';
 import { UserProfile, fetchUserProfile } from '../components/UserProfile';
+import { GenrePopularity } from '../components/GenrePopularity';
 
 const clientId = 'a357c65627404b7399e0f41a59410bf3';
 const redirectUri = 'http://localhost:3000/insights';
@@ -12,6 +13,8 @@ export function Insights() {
     const [userResults, setUserResults] = useState();
     const [topArtistsResults, setTopArtistsResults] = useState();
     const [topTracksResults, setTopTracksResults] = useState();
+    const [topGenres, setTopGenres] = useState();
+    const [popularity, setPopularity] = useState();
 
     const [fetchingUser, setFetchingUser] = useState(true);
     const [fetchingArtists, setFetchingArtists] = useState(true);
@@ -57,6 +60,12 @@ export function Insights() {
                             setTopArtistsResults(artists);
                             setTopTracksResults(tracks);
 
+                            let sortedGenres = sortGenres(artists.items);
+                            setTopGenres(sortedGenres);
+                            
+                            let finalPopularity = getPopularity(artists, tracks)
+                            setPopularity(finalPopularity);
+
                             setFetchingUser(false);
                             setFetchingArtists(false);
                             setFetchingTracks(false);
@@ -64,7 +73,9 @@ export function Insights() {
                             const dataToSend = {
                                 userResults: user,
                                 topArtistsResults: artists,
-                                topTracksResults: tracks
+                                topTracksResults: tracks,
+                                topGenreResults: sortedGenres,
+                                popularityScore: finalPopularity
                             };
 
                             saveDataToMongo(dataToSend);
@@ -84,7 +95,7 @@ export function Insights() {
                 <div id="loader"> </div>
                 <div id="loaderText">loading!</div>
             </div>
-            
+
         );
     } else {
         if (toFindFriend) {
@@ -95,6 +106,7 @@ export function Insights() {
                     <UserProfile results={userResults} />
                     <TopArtists results={topArtistsResults} />
                     <TopTracks results={topTracksResults} />
+                    <GenrePopularity genres={topGenres} popularity={popularity} />
                     <button onClick={() => setToFindFriend(true)}>next</button>
                 </div>
             )
@@ -122,6 +134,50 @@ function saveDataToMongo(data) {
         .catch((error) => {
             console.error(`${error}`);
         });
+}
+
+function sortGenres(artists) {
+    let map = {};
+
+    for (let i = 0; i < artists.length; i++) {
+        let listGenres = artists[i].genres;
+        for (let j = 0; j < listGenres.length; j++) {
+            let value = listGenres[j];
+            if (map[value] == null) {
+                map[value] = 1;
+            } else {
+                map[value]++;
+            }
+        }
+    }
+
+    let keys = Object.keys(map);
+
+    function compare(a, b) {
+        if (map[a] < map[b]) {
+            return 1;
+        } else if (map[a] > map[b]) {
+            return -1;
+        }
+
+        return 0;
+    }
+
+    return keys.sort(compare);
+}
+
+function getPopularity(artists, tracks) {
+    let artistsPopularity = artists.items.map(item => item.popularity);
+    let tracksPopularity = tracks.items.map(item => item.popularity);
+
+    let popularityArray = artistsPopularity.concat(tracksPopularity);
+    let sum = 0;
+
+    popularityArray.forEach((element) => {
+        sum = sum + element;
+    })
+
+    return sum / popularityArray.length;
 }
 
 
