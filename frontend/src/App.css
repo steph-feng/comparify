@@ -19,15 +19,16 @@
   0% {
     transform: translateY(100%);
   }
+
   100% {
     transform: translateY(0);
   }
 }
 
-@font-face { 
-  font-family: "poppins-bolditalic"; 
+@font-face {
+  font-family: "poppins-bolditalic";
   src: url('./assets/fonts/Poppins-BoldItalic.ttf') format("truetype");
- } 
+}
 
 .title {
   font-family: "poppins-bolditalic";
@@ -39,10 +40,10 @@
 }
 
 
-@font-face { 
-  font-family: "poppins-semibold"; 
+@font-face {
+  font-family: "poppins-semibold";
   src: url('./assets/fonts/Poppins-SemiBold.ttf') format("truetype");
- } 
+}
 
 
 #startButton {
@@ -77,7 +78,7 @@
 }
 
 .wave:nth-of-type(1) {
-  background: #B8EECB; 
+  background: #B8EECB;
   z-index: 1;
   animation: wave 8s -5s ease-in reverse infinite;
 }
@@ -99,23 +100,23 @@
 
 @keyframes wave {
   2% {
-      transform: translateX(1);
+    transform: translateX(1);
   }
 
   25% {
-      transform: translateX(-25%);
+    transform: translateX(-25%);
   }
 
   50% {
-      transform: translateX(-50%);
+    transform: translateX(-50%);
   }
 
   75% {
-      transform: translateX(-25%);
+    transform: translateX(-25%);
   }
 
   100% {
-      transform: translateX(1);
+    transform: translateX(1);
   }
 }
 
@@ -134,12 +135,12 @@
 
 #loader {
   width: 10vmin;
-	height: 10vmin;
-	margin: 0vh auto 5vmin;
-	border: solid 1.5vmin #6357e6;
-	border-radius: 50%;
-	border-right-color: transparent;
-	border-bottom-color: transparent;
+  height: 10vmin;
+  margin: 0vh auto 5vmin;
+  border: solid 1.5vmin #6357e6;
+  border-radius: 50%;
+  border-right-color: transparent;
+  border-bottom-color: transparent;
   transition: all 1s ease-in;
   animation: rotate 1s linear infinite;
 }
@@ -152,10 +153,11 @@
 
 @keyframes rotate {
   from {
-      transform: rotate(0deg);
+    transform: rotate(0deg);
   }
-  to { 
-      transform: rotate(360deg);
+
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -174,6 +176,7 @@
   0% {
     transform: translateY(50%);
   }
+
   100% {
     transform: translateY(0);
   }
@@ -187,7 +190,7 @@
   background: none;
   border-left: none;
   border-top: none;
-  border-right: 1vmin solid #6357e6; 
+  border-right: 1vmin solid #6357e6;
   border-bottom: 1vmin solid #6357e6;
   height: 5vmin;
   width: 5vmin;
@@ -196,7 +199,7 @@
 }
 
 #toArtistsArrow {
-  border-right: 1vmin solid #9DCEFF; 
+  border-right: 1vmin solid #9DCEFF;
   border-bottom: 1vmin solid #9DCEFF;
 }
 
@@ -501,17 +504,97 @@
   border: 0.3vmin solid #6357e6;
 }
 
+/* Compare.js style */
 
+.compareContainer {
+  display: flex;
+  flex-direction: column;
+}
 
+.fullSizeContainer {
+  height: 100vh;
+  width: 100vw;
+}
 
+#similarContainer {
+  background-color: #D8F6E3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
+.compareTitle {
+  font-family: "poppins-semibold";
+  font-size: 5vmin;
+  color: #8F86FF;
+  margin: 2vmin 0;
+}
 
+.wavyText {
+  display: flex;
+  flex-direction: row;
+}
 
+.waveText {
+  font-size: 5vmin;
+  animation: text 2s ease-in-out infinite;
+  animation-delay: calc(0.1s * var(--i));
+  font-family: "poppins-bolditalic";
+  font-size: 10vmin;
+  color: #6357e6;
+}
 
+@keyframes text {
+  0% {
+    transform: translateY(0vmin);
+  }
 
+  20% {
+    transform: translateY(-3vmin);
+  }
 
+  40%,
+  100% {
+    transform: translateY(0vmin);
+  }
+}
 
+.topMarginArrow {
+  margin-top: 10vmin;
+}
 
+.errorText {
+  font-family: "poppins-bolditalic";
+  font-size: 5vmin;
+  color: #6357e6;
+}
 
+.backButton {
+  color: #6357e6;
+  font-size: 10vmin;
+  border: none;
+  cursor: pointer;
+  background: transparent;
+  position: absolute;
+  left: 3vmin;
+  bottom: 3vmin;
+}
 
+#commonContainer {
+  display: flex;
+  flex-direction: row;
+}
 
+.thirdSize {
+  height: 100vh;
+  width: calc(100vw / 3);
+}
+
+.lightPurple {
+  background-color: #DFDCFF;
+}
+
+.lightBlue {
+  background-color: #E1F0FF;
+}

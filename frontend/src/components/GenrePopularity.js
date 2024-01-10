@@ -62,9 +62,9 @@ export function GenrePopularity(props) {
 
                 </div>
             </div>
-            <div id="arrowWrapper" className="relativePosArrow">
+            <div id="arrowWrapper">
                 <a href="#findFriendContainer">
-                    <button className="downArrow"></button>
+                    <button className="downArrow" id="toArtistsArrow"></button>
                 </a>
             </div>
         </div>)

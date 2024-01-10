@@ -30,7 +30,6 @@ export function FindFriend() {
             })
             .then((response) => {
                 responseObject = response;
-                console.log(responseObject);
                 setToCompare(true);
             })
             .catch((error) => {
@@ -91,7 +90,7 @@ const go = {
 
 const disabled = {
     margin: "3vmin",
-    color: "#dddddd",
+    color: "#cccccc",
     fontSize: "5vmin",
     border: "none",
     pointerEvents: "none",

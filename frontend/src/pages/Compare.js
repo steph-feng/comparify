@@ -1,20 +1,31 @@
 import { getResponseObject } from "../components/FindFriend";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Compare() {
     const [user, setUser] = useState(null);
     const [friend, setFriend] = useState(null);
-  
+    const navigate = useNavigate();
+
     useEffect(() => {
-      const responseObject = getResponseObject();
-      setUser(responseObject.currentUserData);
-      setFriend(responseObject.friendUserData);
+        const responseObject = getResponseObject();
+        setUser(responseObject.currentUserData);
+        setFriend(responseObject.friendUserData);
     }, []);
 
-    if (!friend){
-        return <p>User not found please try again</p>;
+    function handleClick() {
+        navigate('/');
     }
-    
+
+    if (friend == null) {
+        return (
+            <div className="fullSizeContainer" id="similarContainer">
+                <p className="errorText">your friend was not found, please try again</p>
+                <button className="backButton" onClick={handleClick}>←</button>
+            </div>
+        )
+    }
+
     let commonArtists = [];
     user.topArtistsNames.forEach(userElement => {
         friend.topArtistsNames.forEach(friendElement => {
@@ -24,36 +35,60 @@ function Compare() {
         })
     });
 
-    let commonSongs = [];
+    let commonTracks = [];
     user.topTracksNames.forEach(userElement => {
         friend.topTracksNames.forEach(friendElement => {
             if (userElement === friendElement) {
-                commonSongs.push(userElement);
+                commonTracks.push(userElement);
             }
         })
     });
 
-    let commonGenres =[];
-    user.artistGenres.forEach(userElement => {
-        friend.artistGenres.forEach(friendElement => {
+    let commonGenres = [];
+    user.topGenres.forEach(userElement => {
+        friend.topGenres.forEach(friendElement => {
             if (userElement === friendElement) {
-                if (!commonGenres.includes(userElement)){
-                    commonGenres.push(userElement);
-                }
+                commonGenres.push(userElement);
             }
         })
     });
+
+    // calculating similarity score
+    let avgNumGenres = (user.topGenres.length + friend.topGenres.length) / 2;
+    let avgPopularity = (user.popularity + friend.popularity) / 200;
+
+    let similarity = (((commonGenres.length / avgNumGenres) * 0.5) +
+        ((commonArtists.length / 10) * 0.17) +
+        ((commonTracks.length / 10) * 0.17) +
+        (avgPopularity * 0.16)) * 100;
+
+    let rounded = similarity.toFixed(1).toString().split("");
 
     return (
-        <div>
-            <h2>Artists in Common</h2>
-            {commonArtists.map(item => <p>{item}</p>)}
-            <h2>Songs in Common</h2>
-            {commonSongs.map(item => <p>{item}</p>)}
-            <h2>Genres in Common</h2>
-            {commonGenres.map(item => <p>{item}</p>)}
+        <div id="compareContainer">
+            <div className="fullSizeContainer" id="similarContainer">
+                <h1 className="compareTitle">you and {friend.displayName.split(" ")[0]} are</h1>
+                <div className="wavyText">
+                    {rounded.map((item, index) => <h1 className="waveText" style={{ '--i': (index + 1) }}>{item}</h1>)}
+                    <h1 className="waveText" style={{ '--i': (rounded.length + 1) }}>%</h1>
+                </div>
+                <h1 className="compareTitle">similar</h1>
+
+                <div id="arrowWrapper" className="topMarginArrow">
+                    <a href="#commonContainer">
+                        <button className="downArrow" id="toArtistsArrow"></button>
+                    </a>
+                </div>
+            </div>
+
+            <div className="fullSizeContainer" id="commonContainer">
+                <div className="thirdSize lightPurple"></div>
+                <div className="thirdSize lightBlue"></div>
+                <div className="thirdSize lightPurple"></div>
+            </div>
         </div>
     )
 }
+
 
 export default Compare

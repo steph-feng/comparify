@@ -26,6 +26,7 @@ async function connectToMongo() {
   const Schema = mongoose.Schema;
   const userSchema = new Schema({
     _id: String,
+    displayName: String,
     topArtistsNames: [String],
     topTracksNames: [String],
     topGenres: [String],
@@ -39,6 +40,7 @@ connectToMongo();
 
 app.post('/save', async (req, res) => {
   const userId = req.body.userResults.id;
+  const userDisplayName = req.body.userResults.display_name;
   const artistNames = req.body.topArtistsResults.items.map(item => item.name);
   const trackNames = req.body.topTracksResults.items.map(item => item.name);
 
@@ -47,6 +49,7 @@ app.post('/save', async (req, res) => {
   const existingUser = await User.findById(userId);
 
   if (existingUser) {
+    existingUser.displayName = userDisplayName;
     existingUser.topArtistsNames = artistNames;
     existingUser.topTracksNames = trackNames;
     existingUser.topGenres = req.body.topGenreResults;
@@ -63,6 +66,7 @@ app.post('/save', async (req, res) => {
   } else {
     const user = new User({
       _id: userId,
+      displayName: userDisplayName,
       topArtistsNames: artistNames,
       topTracksNames: trackNames,
       topGenres: req.body.topGenreResults,
