@@ -82,9 +82,33 @@ function Compare() {
             </div>
 
             <div className="fullSizeContainer" id="commonContainer">
-                <div className="thirdSize lightPurple"></div>
-                <div className="thirdSize lightBlue"></div>
-                <div className="thirdSize lightPurple"></div>
+                <div className="commonTitle" >
+                    <h1 className="errorText transparentBackground">you both listen to:</h1>
+                </div>
+
+                <div className="commonItems">
+                        <div className="thirdSize lightPurple">
+                            <h1 className="blueUnderlineText">artists</h1>
+                            <div className="commonGroup">
+                                {commonArtists.map((item, index) => <p className="commonItem">{index + 1}. {item}</p>)}
+                            </div>
+                        </div>
+                        <div className="thirdSize lightBlue">
+                            <h1 className="purpleUnderlineText">tracks</h1>
+                            <div className="commonGroup">
+                                {commonTracks.map((item, index) => <p className="commonItem">{index + 1}. {item}</p>)}
+                            </div>
+                        </div>
+                        <div className="thirdSize lightPurple">
+                            <h1 className="blueUnderlineText">genres</h1>
+                            <div className="commonGroup">
+                                {commonGenres.map((item, index) => <p className="commonItem">{index + 1}. {item}</p>)}
+                            </div>
+                        </div>
+
+                </div>
+
+                <button className="backButton" onClick={handleClick}>←</button>
             </div>
         </div>
     )

@@ -1,7 +1,6 @@
 .App {
   min-height: 100vh;
   min-width: 100vw;
-  overflow: hidden;
 }
 
 /* LandingPage.js styles */
@@ -583,12 +582,38 @@
 
 #commonContainer {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+}
+
+.commonTitle {
+  height: 20vh;
+  width: 100vw;
+  background-color: #B8EECB;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.transparentBackground {
+  padding: 2.5vmin 4vmin;
+  background-color: rgb(255, 255, 255, 0.5);
+  border-radius: 2vmin;
+}
+
+.commonItems {
+  display: flex;
+  flex-direction: flex;
+  height: 80vh;
 }
 
 .thirdSize {
-  height: 100vh;
   width: calc(100vw / 3);
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
 }
 
 .lightPurple {
@@ -597,4 +622,33 @@
 
 .lightBlue {
   background-color: #E1F0FF;
+}
+
+.purpleUnderlineText {
+  color: #6357e6;
+  border-bottom: solid 1vmin #DFDCFF;
+  padding-bottom: 1vmin;
+  font-size: 4vmin;
+  padding-top: 4vmin;
+}
+
+.blueUnderlineText {
+  color: #6357e6;
+  border-bottom: solid 1vmin #9DCEFF;
+  padding-bottom: 1vmin;
+  font-size: 4vmin;
+  padding-top: 4vmin;
+}
+
+.commonItem {
+  padding: 2vmin;
+  font-family: "poppins-semibold";
+  color: #6357e6;
+  font-size: 2vmin;
+  border-radius: 2vmin;
+  background-color: rgb(255, 255, 255, 0.5);
+}
+
+.commonGroup {
+  margin-top: 2vmin;
 }
